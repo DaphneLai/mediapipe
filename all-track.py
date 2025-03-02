@@ -38,9 +38,7 @@ def count_fingers(hand_landmarks):
             finger_count += 1
 
     # Check if thumb is extended
-    if hand_landmarks.landmark[thumb_tip].x < hand_landmarks.landmark[3].x:  # Left hand
-        finger_count += 1
-    elif hand_landmarks.landmark[thumb_tip].x > hand_landmarks.landmark[3].x:  # Right hand
+    if hand_landmarks.landmark[thumb_tip].x < hand_landmarks.landmark[3].x:  
         finger_count += 1
 
     return finger_count
@@ -55,7 +53,7 @@ def recognize_gesture(finger_count):
     #     return "Pointing ☝️"
     # elif finger_count == 2 and hand_landmarks.landmark[4].x < hand_landmarks.landmark[3].x:
     #     return "Thumbs Up 👍"
-    return "Unknown Gesture"
+    return "Unknown Gesture: " + str(finger_count)
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -108,7 +106,7 @@ while cap.isOpened():
             cv2.putText(frame, f"Distance: {int(distance)} cm", (50, 90), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
             # Display gesture text
-            cv2.putText(frame, gesture, (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 80, 255), 2, cv2.LINE_AA) 
+            cv2.putText(frame, gesture, (50, 130), cv2.FONT_HERSHEY_SIMPLEX, 1, (80, 80, 255), 2, cv2.LINE_AA) 
 
     # Show the frame
     cv2.imshow("Hand Tracking with Distance & Position", frame)
